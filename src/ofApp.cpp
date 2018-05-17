@@ -21,12 +21,12 @@ void ofApp::draw(){
     ofTranslate(ofPoint(ofGetWidth()/2, ofGetHeight()/2));
 
     float radius= ofGetWidth() / 4;
-    int numPoints= (int)ofMap(ofNoise(r+g+b), 0, 1, 0, 500);
+    int numPoints= (int)ofMap(ofNoise(r+g+b), 0, 1, 0, 5000);
     float angle=TWO_PI/(float)numPoints;
-    int numwave = 50;
+    int numwave = 15;
     for(int i=-numPoints;i<numPoints;i++) {
         ofSetColor(ofNoise(r+i) * 255, ofNoise(g+i) * 255, ofNoise(b+i) * 255);
-        ofDrawCircle(2*i,radius*cos(angle*i*numwave)/5+ofNoise(abs(i)*r)*50, 5);
+        ofDrawCircle(2*i,radius*cos(angle*i*numwave)/5+ofNoise(abs(i)*r)*50, 2);
     }
 }
 
