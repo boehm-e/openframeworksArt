@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include "of3dGraphics.h"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -18,11 +19,12 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    for (int i = 0; i < 1000; i++) {
-        int scale = 1000;
-        ofSetColor(ofColor((ofNoise(r*i/scale)*255), (ofNoise(g*i/scale)*255), (ofNoise(b*i/scale)*255)));
-        ofDrawCircle(ofNoise(r*i/scale)*ofGetWidth(),ofNoise(g*i/scale)*ofGetHeight(),ofNoise(b*i/scale)*100);
-//        ofDrawRectangle(ofNoise(r*i/scale)*ofGetWidth(),ofNoise(g*i/scale)*ofGetHeight(),ofNoise(b)*100,ofNoise(b)*100);
+    for (int j = 0; j< 4; j++) {
+        for (int i = 0; i < 1000; i++) {
+            int scale = 3000;
+            ofSetColor(ofColor((ofNoise(r*i/scale)*255), (ofNoise(g*i/scale)*255), (ofNoise(b*i/scale)*255)));
+            ofDrawCircle(ofNoise(b*j*i/scale)*ofGetWidth(),ofNoise(g*j*i/scale)*ofGetHeight(),ofNoise(b*i/scale)*100);
+        }
     }
 }
 
