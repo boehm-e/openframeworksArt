@@ -27,7 +27,7 @@ void ofApp::draw(){
     for(int i=0;i<numPoints;i++) {
         ofSetColor(ofNoise(r+i) * 255, ofNoise(g+i) * 255, ofNoise(b+i) * 255);
 
-        ofDrawCircle(cos(i)*(radius-i)*ofNoise(b)*sin(angle*i),cos(i)*(radius-i)*ofNoise(b)*cos(angle*i), 5);
+        ofDrawCircle(cos(i)*(radius-i)*ofNoise(b)*sin(angle*i),cos(i)*(radius-i)*ofNoise(b)*cos(angle*i), (int) i/10 - 50);
 
         //        ofDrawLine(ofPoint(radius*sin(angle*i), radius*sin(angle*i)), ofPoint(radius*sin(angle*i-i%numPoints/2), radius*cos(angle*i-i%numPoints/2)));
     }
