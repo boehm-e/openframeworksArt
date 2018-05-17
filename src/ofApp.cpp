@@ -10,7 +10,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     screen.grabScreen(0,0,ofGetWidth(), ofGetHeight());
-    int scale = 4;
+    float scale = 0.2;
     r += 0.01*scale;
     g += 0.02*scale;
     b += 0.015*scale;
@@ -18,11 +18,17 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    for (int i = 0; i < 1000; i++) {
-        int scale = 1000;
-        ofSetColor(ofColor((ofNoise(r*i/scale)*255), (ofNoise(g*i/scale)*255), (ofNoise(b*i/scale)*255)));
-        ofDrawCircle(ofNoise(r*i/scale)*ofGetWidth(),ofNoise(g*i/scale)*ofGetHeight(),ofNoise(b*i/scale)*100);
-//        ofDrawRectangle(ofNoise(r*i/scale)*ofGetWidth(),ofNoise(g*i/scale)*ofGetHeight(),ofNoise(b)*100,ofNoise(b)*100);
+    ofTranslate(ofPoint(ofGetWidth()/2, ofGetHeight()/2));
+
+    float radius= ofGetWidth() / 4;
+    int numPoints= (int)ofMap(ofNoise(r+g+b), 0, 1, 0, 500);
+    float angle=TWO_PI/(float)numPoints;
+
+    for(int i=0;i<numPoints;i++) {
+        ofSetColor(ofNoise(r+i) * 255, ofNoise(g+i) * 255, ofNoise(b+i) * 255);
+        ofDrawCircle(radius*sin(angle*i),radius*cos(angle*i), 5);
+//        ofDrawLine(ofPoint(radius*sin(angle*i), radius*sin(angle*i)), ofPoint(radius*sin(angle*i+1), radius*cos(angle*i+1)));
+        ofDrawLine(ofPoint(radius*sin(angle*i), radius*sin(angle*i)), ofPoint(radius*sin(angle*i-i%numPoints/2), radius*cos(angle*i-i%numPoints/2)));
     }
 }
 
