@@ -25,7 +25,7 @@ void ofApp::draw(){
     float angle=TWO_PI/(float)numPoints*15;
 
     for(int i=0;i<numPoints;i++) {
-        ofSetColor(ofNoise(r+i) * 255, ofNoise(g+i) * 255, ofNoise(b+i) * 255);
+        ofSetColor(ofNoise(r+i) * 25, ofNoise(g+i) * 25, ofNoise(b+i) * 255);
 
         ofDrawCircle(cos(i)*(radius-i)*ofNoise(b)*sin(angle*i),cos(i)*(radius-i)*ofNoise(b)*cos(angle*i), 5);
 
