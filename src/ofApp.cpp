@@ -2,9 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    r = 0;
-    g = 1;
-    b = 2;
+    r = ofRandom(5);
+    g = ofRandom(5);
+    b = ofRandom(5);
 }
 
 //--------------------------------------------------------------
@@ -20,13 +20,15 @@ void ofApp::update(){
 void ofApp::draw(){
     ofTranslate(ofPoint(ofGetWidth()/2, ofGetHeight()/2));
 
-    float radius= ofGetWidth() / 4;
-    int numPoints= (int)ofMap(ofNoise(r+g+b), 0, 1, 0, 500);
-    float angle=TWO_PI/(float)numPoints;
-    int numwave = 50;
-    for(int i=-numPoints;i<numPoints;i++) {
-        ofSetColor(ofNoise(r+i) * 255, ofNoise(g+i) * 255, ofNoise(b+i) * 255);
-        ofDrawCircle(2*i,radius*cos(angle*i*numwave)/5+ofNoise(abs(i)*r)*50, 5);
+
+    int numPoints = 50;
+    for(int x=-numPoints;x<numPoints;x++) {
+        for(int y=-numPoints;y<numPoints;y++) {
+            int _x = (int) ofMap(x, 0, numPoints, 0, ofGetWidth());
+            int _y = (int) ofMap(y, 0, numPoints, 0, ofGetHeight());
+            ofSetColor(ofNoise(r+x+y) * 255, ofNoise(g+x+y) * 255, ofNoise(b+x+y) * 255);
+            ofDrawCircle(ofNoise(cos(x)+sin(y)+g)*_x, ofNoise(sin(x)+cos(y)+b)*_y, 5);
+        }
     }
 }
 
