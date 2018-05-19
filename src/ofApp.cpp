@@ -19,20 +19,25 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    float radiusX = ofGetWidth()/3;
-    float radiusY = ofGetWidth() / 3;
-    float angle1 = ofMap(ofNoise(r), 0, 1, 5*PI/6, PI/6);
-    float angle2 = ofMap(ofNoise((g+r)/2), 0, 1, PI, 0);
+    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
 
-    ofPoint firstPendule = ofPoint(ofGetWidth()/2, 10);
-    ofPoint secondPendule = ofPoint(radiusX*cos(angle1)+firstPendule.x, radiusY*sin(angle1)+firstPendule.y);
-    ofPoint thirdPendule = ofPoint(radiusX*cos(angle2)+secondPendule.x, radiusY*sin(angle2)+secondPendule.y);
-    ofSetColor(ofNoise(r)*255, ofNoise(g)*255, ofNoise(b)*255);
-    ofDrawCircle(firstPendule, 5);
-    ofDrawLine(firstPendule, secondPendule);
-    ofDrawCircle(secondPendule, 5);
-    ofDrawLine(secondPendule, thirdPendule);
-    ofDrawCircle(thirdPendule, 5);
+//    float width = ofMap(ofNoise(r), 0, 1, 0, 500);
+//    float height = ofMap(ofNoise(r), 0, 1, 0, 500);
+    float width = 250;
+    float height = 250;
+
+//    float circleNumber = ofMap(ofNoise(g), 0, 1, 0, 5);
+    float circleNumber = 8;
+    float circleNumberPoints = ofMap(ofNoise(b), 0, 1, 0, 1000);
+
+    for (int i=1; i<circleNumber; i++) {
+        for (int x=0; x<circleNumberPoints; x++) {
+            ofSetColor(ofNoise(cos(r)+sin(x))*255, ofNoise(cos(g)+sin(x))*255, ofNoise(cos(b)+sin(x))*255);
+            ofDrawCircle(width*cos(x)+width*cos(i), height*sin(x)+width*sin(i),3);
+            ofDrawLine(width*cos(x)+width*cos(i), height*sin(x)+width*sin(i), width*cos(x+1)+width*cos(i), height*sin(x+1)+width*sin(i));
+            ofDrawLine(width*cos(x)+width*cos(i), height*sin(x)+width*sin(i), width*cos(x-1)+width*cos(i), height*sin(x-1)+width*sin(i));
+        }
+    }
 
 }
 
