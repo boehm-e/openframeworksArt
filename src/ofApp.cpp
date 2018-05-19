@@ -18,19 +18,27 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofTranslate(ofPoint(ofGetWidth()/2, ofGetHeight()/2));
+    ofTranslate(ofPoint(ofGetWidth()/2, 0));
+    int numPoints = 50;
+    int height = 25;
 
-    float radius= ofNoise(b) * 4 * ofGetWidth() / 4;
-    int numPoints = ofMap(ofNoise(b), 0, 1, 0, 1000);
-    float angle=TWO_PI/(float)numPoints*15;
 
-    for(int i=0;i<numPoints;i++) {
-        ofSetColor(ofNoise(r+i) * 255, ofNoise(g+i) * 255, ofNoise(b+i) * 255);
+    for (int n = 1; n<100; n++) {
+        int x = ofMap(ofNoise(r+n/10) * n, 0, 100, 0, 0);
+        ofPoint first = ofPoint(x, 0);
+        ofPoint next = ofPoint(x, height);
+        for(int i=1;i<=numPoints;i++) {
+            ofSetColor(ofNoise(r*n/i) * 255, ofNoise(g*n/i) * 255, ofNoise(b*n/i) * 255);
 
-        ofDrawCircle(cos(i)*(radius-i)*ofNoise(b)*sin(angle*i),cos(i)*(radius-i)*ofNoise(b)*cos(angle*i), (int) i/10 - 50);
+            ofDrawLine(first, next);
+            ofDrawCircle(first, 5);
 
-        //        ofDrawLine(ofPoint(radius*sin(angle*i), radius*sin(angle*i)), ofPoint(radius*sin(angle*i-i%numPoints/2), radius*cos(angle*i-i%numPoints/2)));
+            first = next;
+            float angle = ofMap(ofNoise(b+i/10)*i+n, 1, numPoints, 0, PI);
+            next = ofPoint(first.x - i * cos(angle), next.y+height);
+        }
     }
+
 }
 
 //--------------------------------------------------------------
