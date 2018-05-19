@@ -11,7 +11,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     screen.grabScreen(0,0,ofGetWidth(), ofGetHeight());
-    float scale = 2;
+    float scale = 0.02;
     r += 0.01*scale;
     g += 0.012*scale;
     b += 0.015*scale;
@@ -21,22 +21,18 @@ void ofApp::update(){
 void ofApp::draw(){
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
 
-//    float width = ofMap(ofNoise(r), 0, 1, 0, 500);
-//    float height = ofMap(ofNoise(r), 0, 1, 0, 500);
     float width = 250;
     float height = 250;
 
-//    float circleNumber = ofMap(ofNoise(g), 0, 1, 0, 5);
-    float circleNumber = 8;
     float circleNumberPoints = ofMap(ofNoise(b), 0, 1, 0, 1000);
 
-    for (int i=1; i<circleNumber; i++) {
-        for (int x=0; x<circleNumberPoints; x++) {
-            ofSetColor(ofNoise(cos(r)+sin(x))*255, ofNoise(cos(g)+sin(x))*255, ofNoise(cos(b)+sin(x))*255);
-            ofDrawCircle(width*cos(x)+width*cos(i), height*sin(x)+width*sin(i),3);
-            ofDrawLine(width*cos(x)+width*cos(i), height*sin(x)+width*sin(i), width*cos(x+1)+width*cos(i), height*sin(x+1)+width*sin(i));
-            ofDrawLine(width*cos(x)+width*cos(i), height*sin(x)+width*sin(i), width*cos(x-1)+width*cos(i), height*sin(x-1)+width*sin(i));
-        }
+    for (int x=0; x<circleNumberPoints; x++) {
+        ofSetColor(ofNoise(cos(r)+sin(x))*255, ofNoise(cos(g)+sin(x))*255, ofNoise(cos(b)+sin(x))*255);
+
+        ofDrawCircle(width*cos(x), height*sin(x),3);
+        ofDrawLine(width*cos(x), height*sin(x), width*cos(x+circleNumberPoints/4), height*sin(x+circleNumberPoints*4*ofNoise(x)));
+        ofDrawLine(width*cos(x), height*sin(x), width*cos(x-circleNumberPoints*4*ofNoise(x)), height*sin(x-circleNumberPoints/4));
+
     }
 
 }
