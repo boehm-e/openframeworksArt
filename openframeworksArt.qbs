@@ -12,13 +12,13 @@ Project{
         name: { return FileInfo.baseName(path) }
 
         files: [
-            'src/main.cpp',
-            'src/ofApp.cpp',
-            'src/ofApp.h',
+            "src/main.cpp",
+            "src/ofApp.cpp",
+            "src/ofApp.h",
         ]
 
         of.addons: [
-
+            'utf8ofxTTfontUC'
         ]
 
         // additional flags for the project. the of module sets some

@@ -1,86 +1,69 @@
 #include "ofApp.h"
-
 //--------------------------------------------------------------
 void ofApp::setup(){
-    r = 0;
-    g = 1;
-    b = 2;
+    font.load("roboto.ttf",30);
+    textMesh = font.getStringMesh("Le faux-texte est, en imprimerie, un texte",0,0);
+
+    ofDisableArbTex();
+    img.load("cat.jpg");
+    img2.load("rgb.jpg");
+    sphere.setRadius(200);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    screen.grabScreen(0,0,ofGetWidth(), ofGetHeight());
-    float scale = 0.2;
-    r += 0.01*scale;
-    g += 0.02*scale;
-    b += 0.015*scale;
-}
-
-//--------------------------------------------------------------
-void ofApp::draw(){
-    ofTranslate(ofPoint(ofGetWidth()/2, ofGetHeight()/2));
-
-    float radius= ofGetWidth() / 4;
-    int numPoints= (int)ofMap(ofNoise(r+g+b), 0, 1, 0, 5000);
-    float angle=TWO_PI/(float)numPoints;
-    int numwave = 15;
-    for(int i=-numPoints;i<numPoints;i++) {
-        ofSetColor(ofNoise(r+i) * 255, ofNoise(g+i) * 255, ofNoise(b+i) * 255);
-        ofDrawCircle(2*i,radius*cos(angle*i*numwave)/5+ofNoise(abs(i)*r)*50, 2);
+    if(mouse_down == true) {
+        ofVec3f mousePoint(mouseX,mouseY,0);
+        points.push_back(mousePoint);
     }
 }
 
+float x = 0;
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key){
+void ofApp::draw(){
+    x+=0.00001;
+    ofTranslate(50, 50);
 
+    ofDisableArbTex();
+
+    ofMesh mesh;
+
+    mesh.enableColors();
+    mesh.enableTextures();
+
+    mesh.addVertex(ofVec3f(0,0,0));
+    mesh.addVertex(ofVec3f(0,500,0));
+    mesh.addVertex(ofVec3f(500,0,0));
+    mesh.addVertex(ofVec3f(500,500,0));
+    mesh.addVertex(ofVec3f(1000, 0,0));
+    mesh.addVertex(ofVec3f(1000,500,0));
+
+
+
+    if (mesh.getNumVertices() > 2) {
+        for (int i = 0; i < mesh.getNumVertices() - 2; i++) {
+            mesh.addIndex(i);
+            mesh.addIndex(i + 1);
+            mesh.addIndex(i + 2);
+        }
+    }
+//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(0,0) );
+//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(0,1) );
+//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(0.5,0) );
+//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(0.5,1) );
+//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(1,0) );
+//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(1,0.5) );
+
+    img.getTextureReference().bind();
+    mesh.draw();
+    img.getTextureReference().unbind();
 }
 
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
 
+void ofApp::mousePressed(int x, int y, int button) {
+    mouse_down = true;
 }
 
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){
-
+void ofApp::mouseReleased(int x, int y, int button) {
+    mouse_down = false;
 }
