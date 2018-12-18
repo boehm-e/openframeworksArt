@@ -32,11 +32,14 @@ void ofApp::draw(){
     mesh.enableTextures();
 
     mesh.addVertex(ofVec3f(0,0,0));
-    mesh.addVertex(ofVec3f(0,500,0));
     mesh.addVertex(ofVec3f(500,0,0));
+    mesh.addVertex(ofVec3f(0,500,0));
     mesh.addVertex(ofVec3f(500,500,0));
-    mesh.addVertex(ofVec3f(1000, 0,0));
-    mesh.addVertex(ofVec3f(1000,500,0));
+
+    mesh.addVertex(ofVec3f(0,0,-50));
+    mesh.addVertex(ofVec3f(500,0,-50));
+    mesh.addVertex(ofVec3f(0,500,-50));
+    mesh.addVertex(ofVec3f(500,500,-50));
 
 
 
@@ -47,14 +50,13 @@ void ofApp::draw(){
             mesh.addIndex(i + 2);
         }
     }
-//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(0,0) );
-//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(0,1) );
-//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(0.5,0) );
-//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(0.5,1) );
-//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(1,0) );
-//    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(1,0.5) );
+    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(0,0) );
+    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(1,0) );
+    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(0,1) );
+    mesh.addTexCoord( img.getTextureReference().getCoordFromPercent(1,1) );
 
     img.getTextureReference().bind();
+    ofRotateX(20);
     mesh.draw();
     img.getTextureReference().unbind();
 }
