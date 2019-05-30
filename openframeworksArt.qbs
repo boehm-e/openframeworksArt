@@ -18,7 +18,8 @@ Project{
         ]
 
         of.addons: [
-
+            'ofxAssimpModelLoader',
+            'ofxReflectionRefraction'
         ]
 
         // additional flags for the project. the of module sets some
