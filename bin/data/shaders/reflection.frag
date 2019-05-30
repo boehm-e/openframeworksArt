@@ -1,27 +1,22 @@
 #version 150
-in vec3 vecNormal;
 
-out vec4 fragColor;
+out vec4 out_Colour;
 
-// these are passed in from OF programmable renderer
-uniform mat4 modelViewProjectionMatrix;
-uniform mat4 modelViewMatrix;
-uniform mat4 projectionMatrix;
-uniform mat4 textureMatrix;
-uniform mat4 normalMatrix;
-// this is set in the OF app
-uniform vec4 uMaterialColor;
+in vec3 reflectedVector;
+in vec2 pass_textureCoordinates;
+in vec3 pass_normal;
 
-void main(){
-    vec3 light = vec3(0.5, 0.2, 1.0);
-    light = normalize(light);
 
-    // dot product
-    float dProd = max(0.0, dot(vecNormal, light));
+uniform sampler2D modelTexture;
+uniform samplerCube environMap;
 
-    //color
-    vec4 color = uMaterialColor;
-    vec4 col = vec4( vec3( dProd ) * vec3( color ), 1.0 );
-    fragColor = vec4(1.0, 0.0, 0.0, 0.0);
-    // fragColor = col;
+const vec3 lightDirection = normalize(vec3(0.2, -1.0, 0.3));
+const float ambient = 0.3;
+
+void main(void){
+
+	float brightness = max(dot(-lightDirection, normalize(pass_normal)), 0.0) + ambient;
+	out_Colour = vec4(1.0,0.0,0.0,1.0) * brightness;
+	// out_Colour = texture(modelTexture, pass_textureCoordinates) * brightness;
+
 }

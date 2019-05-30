@@ -1,18 +1,29 @@
 #version 150
-out vec3 vecNormal;
 
 in vec4 position;
-in vec4 color;
-in vec4 normal;
+in vec2 textureCoordinates;
+in vec3 normal;
 
-// these are passed in from OF programmable renderer
+out vec3 pass_normal;
+out vec2 pass_textureCoordinates;
+out vec3 reflectedVector;
+
 uniform mat4 modelViewProjectionMatrix;
-uniform mat4 modelViewMatrix;
+uniform mat4 transformationMatrix;
 uniform mat4 projectionMatrix;
-uniform mat4 textureMatrix;
-uniform mat4 normalMatrix;
+uniform mat4 viewMatrix;
+uniform vec3 cameraPosition;
 
-void main(){
-    vecNormal = normal.xzy;
-    gl_Position = modelViewProjectionMatrix * position;
+void main(void){
+
+	vec4 worldPosition = transformationMatrix * position;
+	gl_Position = modelViewProjectionMatrix * position;
+
+	pass_textureCoordinates = textureCoordinates;
+	pass_normal = normal;
+	vec3 unitNormal = normalize(normal);
+
+	vec3 viewVector = normalize(worldPosition.xyz - cameraPosition);
+	reflectedVector = reflect(viewVector, unitNormal);
+
 }

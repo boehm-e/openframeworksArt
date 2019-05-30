@@ -1,11 +1,27 @@
-#version 100
+#version 150
+in vec3 vecNormal;
 
-precision highp float;
+out vec4 fragColor;
 
-varying vec2 texCoordVar;
+// these are passed in from OF programmable renderer
+uniform mat4 modelViewProjectionMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform mat4 textureMatrix;
+uniform mat4 normalMatrix;
+// this is set in the OF app
+uniform vec4 uMaterialColor;
 
 void main(){
-	vec2 newTexCoord = vec2(texCoordVar.x, texCoordVar.y);
+    vec3 light = vec3(0.5, 0.2, 1.0);
+    light = normalize(light);
 
-	gl_FragColor = vec4(newTexCoord,0.0,1.0);
+    // dot product
+    float dProd = max(0.0, dot(vecNormal, light));
+
+    //color
+    vec4 color = uMaterialColor;
+    vec4 col = vec4( vec3( dProd ) * vec3( color ), 1.0 );
+    fragColor = vec4(1.0, 0.0, 0.0, 0.5);
+    // fragColor = col;
 }

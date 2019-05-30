@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxAssimpModelLoader.h"
+#include "ofxCubeMap.h"
 
 class ofApp : public ofBaseApp {
 
@@ -14,9 +15,11 @@ class ofApp : public ofBaseApp {
         ofxAssimpModelLoader model;
         ofEasyCam cam;
         ofPlanePrimitive plane;
+        ofxCubeMap cubeMap;
+
 //        ofxAssimpModelLoader yourModel;
 //        ofEasyCam easycam;
-        //        void keyPressed(int key);
+//        void keyPressed(int key);
 //        void keyReleased(int key);
 //        void mouseMoved(int x, int y );
 //        void mouseDragged(int x, int y, int button);

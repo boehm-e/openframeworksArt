@@ -19,7 +19,8 @@ Project{
 
         of.addons: [
             'ofxAssimpModelLoader',
-            'ofxReflectionRefraction'
+            'ofxReflectionRefraction',
+            'ofxCubeMap'
         ]
 
         // additional flags for the project. the of module sets some
